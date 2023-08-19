@@ -2,8 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
+	"github.com/jbymy2000/reviewbot/internal/logger"
 	"os"
 )
 
@@ -20,7 +19,7 @@ func init() {
 	// 读取配置文件
 	configFile, err := os.Open(configFilePath)
 	if err != nil {
-		fmt.Println("Error:", err)
+		logger.Error(err.Error())
 		return
 	}
 	// 解析 JSON 数据
@@ -28,7 +27,7 @@ func init() {
 	decoder := json.NewDecoder(configFile)
 	err = decoder.Decode(&Conf)
 	if err != nil {
-		log.Fatalf("Error:", err)
+		logger.Errorf(err.Error())
 		return
 	}
 }

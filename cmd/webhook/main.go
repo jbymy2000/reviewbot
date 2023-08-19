@@ -11,16 +11,13 @@ import (
 )
 
 func main() {
-	//time out control
-	globalCtx, cancel1 := context.WithTimeout(context.Background(), time.Duration(config.Conf.GlobalTimeout)*time.Second)
-	defer cancel1()
-	dbInitCtx, cancel2 := context.WithTimeout(context.Background(), time.Duration(config.Conf.DbInitTimeout)*time.Second)
-	defer cancel2()
+	dbInitCtx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Conf.DbInitTimeout)*time.Second)
+	defer cancel()
 	//manage postgres conn pool
 	_, err := repository.InitDBPool(dbInitCtx)
 	defer repository.CloseDBPool()
 	if err != nil {
 		logger.Error("Data base init fail" + err.Error())
 	}
-	lambda.StartWithOptions(controllers.Handler, lambda.WithContext(globalCtx))
+	lambda.Start(controllers.Handler)
 }

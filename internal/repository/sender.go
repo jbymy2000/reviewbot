@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/jbymy2000/reviewbot/config"
-	"github.com/jbymy2000/reviewbot/internal/logger"
 	"io"
 	"net/http"
 )
@@ -21,8 +20,6 @@ func SenderMessage(ctx context.Context, psID string, message string) (err error)
 		"text": "%s"
 	  }
 	}`, psID, message)
-	logger.Logger.Println(url)
-	logger.Logger.Println(data)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(data)))
 	if err != nil {
 		return err

@@ -5,24 +5,27 @@ import (
 	"log"
 )
 
-var Logger *log.Logger
+var LoggerInfo *log.Logger
+var LoggerError *log.Logger
 
 func init() {
-	Logger = log.New(log.Writer(), "[MyApp] ", log.LstdFlags|log.Lshortfile)
+	LoggerInfo = log.New(log.Writer(), "[reviewBot][INFO] ", log.LstdFlags|log.Lshortfile|log.Lmicroseconds)
+	LoggerError = log.New(log.Writer(), "[reviewBot][ERROR] ", log.LstdFlags|log.Lshortfile|log.Lmicroseconds)
+
 }
 
 func Info(s string) {
-	Logger.Println("[INFO]" + s)
+	_ = LoggerInfo.Output(2, s)
 }
 
 func Infof(f string, s ...interface{}) {
-	Logger.Println(fmt.Sprintf("[INFO]"+f, s...))
+	_ = LoggerInfo.Output(2, fmt.Sprintf(f, s...))
 }
 
 func Error(s string) {
-	Logger.Println("[ERROR]" + s)
+	_ = LoggerError.Output(2, s)
 }
 
 func Errorf(f string, s ...interface{}) {
-	Logger.Println(fmt.Sprintf("[ERROR]"+f, s...))
+	_ = LoggerError.Output(2, fmt.Sprintf(f, s...))
 }
