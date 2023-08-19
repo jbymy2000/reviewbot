@@ -46,4 +46,7 @@ type Config struct {
 		Password string `json:"password"`
 		Database string `json:"database"`
 	} `json:"postgres"`
+	GlobalTimeout  int `json:"global_timeout"`
+	DbInitTimeout  int `json:"db_init_timeout"`
+	DbQueryTimeout int `json:"db_query_timeout"`
 }

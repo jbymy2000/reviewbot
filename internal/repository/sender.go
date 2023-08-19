@@ -31,7 +31,7 @@ func SenderMessage(ctx context.Context, psID string, message string) (err error)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := client.Do(req.WithContext(ctx))
 	if err != nil {
 		return err
 	}
@@ -94,7 +94,7 @@ func SenderSurvy(ctx context.Context, psID string, message string) (err error) {
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := client.Do(req.WithContext(ctx))
 	if err != nil {
 		return err
 	}

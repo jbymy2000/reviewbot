@@ -4,4 +4,4 @@ go.sum
 cmd/webhook/config.json
 cmd/webhook/main
 cmd/webhook/function.zip
-
+config/config.json

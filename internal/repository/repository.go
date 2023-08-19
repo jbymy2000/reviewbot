@@ -11,7 +11,7 @@ import (
 
 var pool *pgxpool.Pool
 
-func InitDBPool() (db *pgxpool.Pool, err error) {
+func InitDBPool(ctx context.Context) (db *pgxpool.Pool, err error) {
 	// Replace with your PostgreSQL connection information
 	connStr := fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
 		config.Conf.MySQL.User,
@@ -21,7 +21,7 @@ func InitDBPool() (db *pgxpool.Pool, err error) {
 		config.Conf.MySQL.Database,
 	)
 	// Open a database connection
-	pool, err = pgxpool.Connect(context.Background(), connStr)
+	pool, err = pgxpool.Connect(ctx, connStr)
 	if err != nil {
 		return nil, errors.New("cann't get db connection " + err.Error())
 	}
@@ -41,7 +41,7 @@ func InsertRatings(ctx context.Context, userID, rating, psid int64) (err error) 
         RETURNING id;`
 
 	var insertedID int
-	err = pool.QueryRow(context.Background(), query, userID, rating, psid).Scan(&insertedID)
+	err = pool.QueryRow(ctx, query, userID, rating, psid).Scan(&insertedID)
 	if err != nil {
 		return err
 	}
