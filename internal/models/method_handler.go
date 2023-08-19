@@ -56,10 +56,10 @@ func (p *PostHandler) Process(ctx context.Context, req events.APIGatewayProxyReq
 		//quick replay postsend message
 		rating, _ := strconv.Atoi(quickReply.Payload)
 		psidint, _ := strconv.Atoi(psid)
-		logger.Logger.Printf("%v%", quickReply)
+		logger.Infof("%v%", quickReply)
 		err := repository.InsertRatings(ctx, 0, int64(rating), int64(psidint))
 		if err != nil {
-			logger.Logger.Printf("Error:", err.Error())
+			logger.Errorf("Error:", err.Error())
 			return newResponse(http.StatusBadRequest, err.Error()), nil
 		}
 	} else {
