@@ -7,7 +7,7 @@ import (
 )
 
 func Test_db(t *testing.T) {
-	_, err := InitDBPool()
+	_, err := InitDBPool(context.TODO())
 	if err != nil {
 		logger.Error("Data base init fail" + err.Error())
 	}
